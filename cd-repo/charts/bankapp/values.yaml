@@ -1,0 +1,11 @@
+cat <<EOF > cd-repo/charts/bankapp/values.yaml
+replicas: 2
+image:
+  repository: adijaiswal/bankapp
+  tag: v4
+containerPort: 8080
+db:
+  url: jdbc:mysql://mysql-service:3306/bankappdb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+  username: root
+  password: Test@123
+EOF

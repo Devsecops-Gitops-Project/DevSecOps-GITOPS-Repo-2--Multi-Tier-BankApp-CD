@@ -1,0 +1,6 @@
+cat <<EOF > cd-repo/charts/database/Chart.yaml
+apiVersion: v2
+name: database
+description: A Helm chart for MySQL database
+version: 0.1.0
+EOF

@@ -1,0 +1,39 @@
+cat <<EOF > cd-repo/charts/database/templates/deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: {{ .Values.db.rootPassword }}
+            - name: MYSQL_DATABASE
+              value: {{ .Values.db.name }}
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+              name: mysql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  ports:
+    - port: {{ .Values.containerPort }}
+  selector:
+    app: mysql
+EOF

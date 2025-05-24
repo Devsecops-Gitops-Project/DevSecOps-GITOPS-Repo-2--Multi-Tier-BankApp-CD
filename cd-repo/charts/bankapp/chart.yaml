@@ -1,0 +1,6 @@
+cat <<EOF > cd-repo/charts/bankapp/Chart.yaml
+apiVersion: v2
+name: bankapp
+description: A Helm chart for bankapp
+version: 0.1.0
+EOF

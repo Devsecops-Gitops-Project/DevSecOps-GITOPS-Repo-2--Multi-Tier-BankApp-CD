@@ -1,0 +1,15 @@
+cat <<EOF > cd-repo/values/dev/bankapp-values.yaml
+replicas: 1
+image:
+  tag: dev
+db:
+  password: DevPassword
+EOF
+
+cat <<EOF > cd-repo/values/prod/bankapp-values.yaml
+replicas: 3
+image:
+  tag: prod
+db:
+  password: ProdPassword
+EOF

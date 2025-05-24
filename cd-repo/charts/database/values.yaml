@@ -1,0 +1,9 @@
+cat <<EOF > cd-repo/charts/database/values.yaml
+image:
+  repository: mysql
+  tag: "8"
+containerPort: 3306
+db:
+  rootPassword: Test@123
+  name: bankappdb
+EOF

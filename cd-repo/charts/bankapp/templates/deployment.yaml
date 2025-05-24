@@ -1,0 +1,42 @@
+cat <<EOF > cd-repo/charts/bankapp/templates/deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.replicas }}
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: {{ .Values.db.url | quote }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.db.username }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ .Values.db.password }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: {{ .Values.containerPort }}
+  selector:
+    app: {{ .Chart.Name }}
+EOF

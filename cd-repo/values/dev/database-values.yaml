@@ -1,0 +1,9 @@
+cat <<EOF > cd-repo/values/dev/database-values.yaml
+db:
+  rootPassword: DevPassword
+EOF
+
+cat <<EOF > cd-repo/values/prod/database-values.yaml
+db:
+  rootPassword: ProdPassword
+EOF
